@@ -1,0 +1,92 @@
+_schema-version: "3.2"
+ID: MyContacts
+version: 0.0.1
+modules:
+- name: MyContacts-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: MyContacts-destination-service
+    parameters:
+      content-target: true
+  - name: MyContacts_html_repo_host
+    parameters:
+      service-key:
+        name: MyContacts_html_repo_host-key
+  - name: uaa_MyContacts
+    parameters:
+      service-key:
+        name: uaa_MyContacts-key
+  parameters:
+    content:
+      subaccount:
+        destinations:
+        - Name: app_contacts_test_MyContacts_html_repo_host
+          ServiceInstanceName: MyContacts-html5-app-host-service
+          ServiceKeyName: MyContacts_html_repo_host-key
+          sap.cloud.service: app_contacts_test
+        - Authentication: OAuth2UserTokenExchange
+          Name: app_contacts_test_uaa_MyContacts
+          ServiceInstanceName: MyContacts-xsuaa-service
+          ServiceKeyName: uaa_MyContacts-key
+          sap.cloud.service: app_contacts_test
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: MyContacts-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: MyContacts_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - appmycontacts.zip
+      name: appmycontacts
+      target-path: resources/
+- name: appmycontacts
+  type: html5
+  path: app_mycontacts
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: MyContacts-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: MyContacts-destination-service
+    service-plan: lite
+- name: MyContacts_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: MyContacts-html5-app-host-service
+    service-plan: app-host
+- name: uaa_MyContacts
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: MyContacts-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo

@@ -1,0 +1,59 @@
+{
+    "welcomeFile": "/index.html",
+    "authenticationMethod": "route",
+    "routes": [
+        {
+            "source": "^/products/(.*)$",
+            "target": "/products/$1",
+            "destination": "apimanagement_api_proxy_gen",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
+            "source": "^/Act!365/(.*)$",
+            "target": "/Act!365/$1",
+            "destination": "apimanagement_karthik",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
+            "source": "^/HubSpotCRM/(.*)$",
+            "target": "/HubSpotCRM/$1",
+            "destination": "apimanagement_api_proxy_gen",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
+            "source": "^/Snowflake/(.*)$",
+            "target": "/Snowflake/$1",
+            "destination": "apimanagement_api_proxy_gen",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
+            "source": "^/Gmail/(.*)$",
+            "target": "/Gmail/$1",
+            "destination": "apimanagement_api_proxy_gen",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
+            "source": "^/resources/(.*)$",
+            "target": "/resources/$1",
+            "authenticationType": "none",
+            "destination": "ui5"
+        },
+        {
+            "source": "^/test-resources/(.*)$",
+            "target": "/test-resources/$1",
+            "authenticationType": "none",
+            "destination": "ui5"
+        },
+        {
+            "source": "^(.*)$",
+            "target": "$1",
+            "service": "html5-apps-repo-rt",
+            "authenticationType": "xsuaa"
+        }
+    ]
+}

@@ -1,0 +1,130 @@
+<mvc:View 
+xmlns:mvc="sap.ui.core.mvc" 
+xmlns="sap.m"
+xmlns:l="sap.ui.layout"
+xmlns:u="sap.ui.unified" 
+controllerName="appmycontacts.controller.App" 
+displayBlock="true">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>Integration Suite - Open Connectors}">
+					<content>
+<Toolbar>
+				<ToolbarSpacer/>
+				<Button id = "BUT1" type="Emphasized" text="HubSpot CRM" press="handleNav1" />
+				<Button id = "BUT2" type="Accept" text="SnowFlake" press="handleNav2" />
+                <Button id = "BUT3" type="Accept" text="Gmail" press="handleNav3" />
+                <Button id = "BUT4" type="Accept" text="Act!365" press="handleNav4" />
+                <Button id = "BUT5" type="Accept" text="Integration Flow" press="handleNav5" />
+				<ToolbarSpacer/>
+			</Toolbar>                         
+<NavContainer id="navCon" width="98%" class="navContainerControl sapUiSmallMarginBottom">
+			<Page id="p1" title="HubSpot CRM - Customer Details" >
+            <Table id="table1" items="{DataModel>/}" class="sapUiSizeCompact">
+<columns>
+<Column><Label text="Name"/></Column>
+<Column><Label text="City"/></Column>
+<Column><Label text="Email"/></Column>
+</columns>
+<ColumnListItem>
+<Text text="{DataModel>properties/firstname}"/>
+<Text text="{DataModel>properties/city}"/>
+<Text text="{DataModel>properties/email}"/>
+</ColumnListItem>
+</Table>
+<Text text="Add New Cutomer Details"/>
+<VBox id="FromContainerId" class="sapUiTinyMargin">
+      
+      	<Label text="Name"/>
+      	<Input id="myInput1"/>
+        <Label text="City"/>
+        <Input id="myInput2"/>
+        <Label text="Email"/>
+        <Input id="myInput3"/>
+      	<Button text="Submit" press="onGetValuesPress" icon="sap-icon://complete" activeIcon="sap-icon://complete"/>
+      	<Label text="Results"/>
+      	<Label id="ResultLabelId"/>
+
+      </VBox>
+			</Page>
+			<Page id="p2" title="SnowFlake - Customer Details" >
+            <Table id="table2" items="{DataModelSF>/}" class="sapUiSizeCompact">
+<columns>
+<Column><Label text="Customer Name"/></Column>
+<Column><Label text="City"/></Column>
+<Column><Label text="Organization"/></Column>
+<Column><Label text="Age"/></Column>
+</columns>
+<ColumnListItem>
+<Text text="{DataModelSF>CUSTOMER_NAME}"/>
+<Text text="{DataModelSF>CITY}"/>
+<Text text="{DataModelSF>ORGANIZATION}"/>
+<Text text="{DataModelSF>AGE}"/>
+</ColumnListItem>
+</Table>
+			</Page>
+            <Page id="p3" title="Gmail" >
+        <Table id="table3" items="{DataModelGM>/}" class="sapUiSizeCompact">
+<columns>
+<Column><Label text="Mail Thread Id"/></Column>
+<Column><Label text="ID"/></Column>
+</columns>
+<ColumnListItem>
+<Text text="{DataModelGM>threadId}"/>
+<Text text="{DataModelGM>id}"/>
+</ColumnListItem>
+</Table>
+			</Page>
+            <Page id="p4" title="Act!365" >
+        <Table id="table4" items="{DataModelAct>/}" class="sapUiSizeCompact">
+<columns>
+<Column><Label text="First Name"/></Column>
+<Column><Label text="Last Name"/></Column>
+<Column><Label text="Email"/></Column>
+<Column><Label text="Contact Number"/></Column>
+<Column><Label text="Company"/></Column>
+</columns>
+<ColumnListItem>
+<Text text="{DataModelAct>firstName}"/>
+<Text text="{DataModelAct>lastName}"/>
+<Text text="{DataModelAct>emailAddress}"/>
+<Text text="{DataModelAct>businessPhone}"/>
+<Text text="{DataModelAct>company}"/>
+</ColumnListItem>
+</Table>
+			</Page>
+            <Page id="p5" title="Integration Flow" >
+            <VBox id="FromContainerId1" class="sapUiTinyMargin">
+      
+      	<Label text="Product Id"/>
+      	<Input id="myInput4"/>
+      	<Button text="Submit" press="onGetValuesPress1" icon="sap-icon://complete" activeIcon="sap-icon://complete"/>
+      	<Label text="Results"/>
+      	<Label id="ResultLabelId1"/>
+
+      </VBox>
+        <Table id="table5" items="{DataModelIF>/}" class="sapUiSizeCompact">
+<columns>
+<Column><Label text="Category"/></Column>
+<Column><Label text="Name"/></Column>
+<Column><Label text="ShortDescription"/></Column>
+<Column><Label text="Pricer"/></Column>
+<Column><Label text="CurrencyCode"/></Column>
+</columns>
+<ColumnListItem>
+<Text text="{DataModelIF>/Products/Product/Category}"/>
+<Text text="{DataModelIF>Products/Product/Name}"/>
+<Text text="{DataModelIF>Products/Product/ShortDescription}"/>
+<Text text="{DataModelIF>Products/Product/Price}"/>
+<Text text="{DataModelIF>Products/Product/CurrencyCode}"/>
+</ColumnListItem>
+</Table>
+			</Page>
+</NavContainer>
+</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
